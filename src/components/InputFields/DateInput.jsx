@@ -7,6 +7,7 @@ const DateInput = ({ item }) => {
   const { RangePicker } = DatePicker;
   return (
     <Form.Item
+      className="custom-form-input"
       name={item.name}
       label={item.label}
       rules={[

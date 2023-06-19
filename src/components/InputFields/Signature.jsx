@@ -3,7 +3,7 @@ import {  Form, Input } from "antd";
 const Signature = ({item}) => {
   return (
     <Form.Item
-    className="custom-form-item"
+    className="custom-form-input"
     name={item.question?.alias}
     label={item.question?.slug}
     rules={[

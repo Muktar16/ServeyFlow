@@ -2,25 +2,34 @@ import { Form, Radio } from "antd";
 import { useContext } from "react";
 import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
 import { getNextFieldByOptions } from "../../utils/NextFieldDecider";
+import { findGroupTypeByBlockId } from "../../utils/findGroupType";
 
 const MultipleChoice = ({ item }) => {
+  
 
-  const {currentGroupType,setFieldList,fieldList} = useContext(ServeyContext);
+  const {setIsSubmit,setFieldList,fieldList,setScroll,scroll} = useContext(ServeyContext);
 
+  //change the dependent following fields based on the value of the current field
   const handleOnchange = (e) => {
-    if(currentGroupType === "referring" && item?.options){
+    setScroll(!scroll)
+    const groupType = findGroupTypeByBlockId(item.id);
+    if(groupType === "referring" && item?.options.length > 0) {
       const index = fieldList.findIndex((field) => field.blockId === item.id);
-      console.log("index",index);
       const sliceFieldList = fieldList.slice(0, index + 1);
-
       setFieldList(sliceFieldList);
       const next = getNextFieldByOptions(item.options,e.target.value);
-      setFieldList((prev) => [...prev,next]);
+      if(next.blockId === "submit"){
+        setIsSubmit(true);
+      }else{
+        setIsSubmit(false);
+        setFieldList((prev) => [...prev,next]);
+      }
     }
   }
 
   return (
     <Form.Item
+      className="custom-form-input"
       name={item.question?.alias}
       label={item.question?.slug}
       rules={[

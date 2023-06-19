@@ -1,3 +1,4 @@
+import { createConditionFromFormValuesByIds } from "./DataFormattingServices";
 
 
 export function getNextFieldByJumpingLogic (jumpingLogic, formValues) {
@@ -11,10 +12,32 @@ export function getNextFieldByJumpingLogic (jumpingLogic, formValues) {
         }
     }
     else{
-
+        //get the values from formValues to compare against conditions in the jubmping logic
+        let createdConditions = [];
+        jumpingLogic[1].conditions.map((condition) => {
+            const alias = findAliasById(condition.id);
+            createdConditions.push({
+                id: condition.id,
+                answer: formValues[alias],
+            });
+        })
+        for(const jubmping of jumpingLogic){
+            if(jumping.conditions === createdConditions)
+        }
     }
     return nextField;
 }
+
+const findAliasById = (id) => {
+    for (const group of data) {
+        for (const block of group.blocks) {
+        if (block.id === id) {
+            return block.question.alias;
+        }
+        }
+    }
+    return null;
+};
 
 
 export function getNextFieldByReferTo (referTo){
@@ -29,7 +52,6 @@ export function getNextFieldByOptions (options,value){
     let next = {}
     options.forEach(option => {
         if(option.value === value){
-            console.log("yes")
             next = {
                 group: option?.referTo?.group_no,
                 blockId: option?.referTo?.id

@@ -7,4 +7,4 @@ const CheckBox = ({item}) => {
   )
 }
 
-export default CheckBox
+export default CheckBox;

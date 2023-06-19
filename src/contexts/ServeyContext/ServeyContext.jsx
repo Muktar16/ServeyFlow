@@ -10,6 +10,7 @@ export const ServeyContextProvider = ({ children }) => {
   const [currentGroupType,setCurrentGroupType] = useState(); 
   const [currentField,setCurrentField] = useState();
   const [isSubmit,setIsSubmit] = useState(false);
+  const [scroll,setScroll] = useState(false);
   
   useEffect(()=>{
     const current = {
@@ -35,7 +36,9 @@ export const ServeyContextProvider = ({ children }) => {
         currentField,
         setCurrentField,
         isSubmit,
-        setIsSubmit
+        setIsSubmit,
+        scroll,
+        setScroll
       }}
     >
       {children}

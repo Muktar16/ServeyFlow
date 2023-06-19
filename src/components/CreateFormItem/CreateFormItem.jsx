@@ -12,7 +12,7 @@ import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
 
 const CreateFormItem = ({ fieldInfo }) => {
   const { currentGroupType, setNextField } = useContext(ServeyContext);
-
+  console.log("currentItem",fieldInfo);
   useEffect(() => {
     if (currentGroupType === "referring" && fieldInfo.referTo) {
       const next = {
@@ -25,7 +25,7 @@ const CreateFormItem = ({ fieldInfo }) => {
 
   return (
     <>
-      <Form.Item>
+      <Form.Item className="custom-form-item">
         {fieldInfo.type === "textInput" ? (
           <TextInput item={fieldInfo} />
         ) : fieldInfo.type === "date" ? (

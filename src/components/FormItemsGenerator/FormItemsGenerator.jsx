@@ -15,7 +15,6 @@ const FormItemsGenerator = ({ currentField }) => {
     setCurrentGroupType(currentGroup?.type);
   }, []);
 
-  console.log("current group type from generator ", currentGroupType);
   if (
     currentGroup?.type === "numbervalidation" ||
     currentGroup?.type === "non-referring"

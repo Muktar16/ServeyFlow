@@ -1,5 +1,5 @@
 import { Button, Form, message } from "antd";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
 import FormItemsGenerator from "../../components/FormItemsGenerator/FormItemsGenerator";
 import { data } from "../../Data/data";
@@ -7,42 +7,72 @@ import { getNextFieldByJumpingLogic } from "../../utils/NextFieldDecider";
 import "./ServeyForm.css";
 
 const ServeyForm = () => {
+
     const [form] = Form.useForm();
+  
     const {
         fieldList,
         currentGroupType,
         currentField,
         setFieldList,
         isSubmit,
-        nextField
-      } = useContext(ServeyContext);
+        setIsSubmit,
+        nextField,
+        setScroll,
+        scroll
+    } = useContext(ServeyContext);
     
     const onFinish = (values) =>{
         console.log("Submitted values" ,values);
     }
+
+
+    useEffect(() => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth' // Optionally, you can use 'auto' or 'instant' for the scrolling behavior
+        });
+    }, [scroll]);
+      
 
     const onFinishFailed = () => {
         message.error("Check if all fields are filled properly");
     }
 
     const handleNextButton = () => {
-        form.validateFields().then(()=>{
+        setScroll(!scroll);
+        // form.validateFields().then(()=>{
             if(currentGroupType === 'numbervalidation' || currentGroupType === "non-referring"){
             const {jumping_logic} = data.find((group)=> group?.group === currentField?.group);
-            const next = getNextFieldByJumpingLogic(jumping_logic);
-            setFieldList((prev) => [...prev,next]);
+            const next = getNextFieldByJumpingLogic(jumping_logic,form.getFieldsValue());
+            if(next.blockId === "submit"){
+                setIsSubmit(true);
+            }
+            else{
+                setIsSubmit(false);
+                setFieldList((prev) => [...prev,next]);
+            }
+            
             }
             else if(!fieldList.some((item) => JSON.stringify(item) === JSON.stringify(nextField))){
                 setFieldList((prev)=>[...prev,nextField]);
             }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        // }).catch((err)=>{
+        //     console.log(err);
+        // })
     }
 
-
     return(<>
-        <Form className="serveyForm" form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form
+            onFinishFailed={onFinishFailed}
+            className="serveyForm"
+            scrollToFirstError
+            autoComplete="on"
+            initialValues={{ remember: true }}
+            form={form}
+            onFinish={onFinish}
+            layout="vertical"
+        >
             {fieldList.map((field,index) => (
                 <FormItemsGenerator key={index} currentField={field}/>
             )   

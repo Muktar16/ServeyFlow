@@ -1,6 +1,7 @@
 
 
-export function getNextFieldByJumpingLogic (jumpingLogic) {
+export function getNextFieldByJumpingLogic (jumpingLogic, formValues) {
+    console.log(formValues)
     let nextField = {};
     if(jumpingLogic.length === 1){
         // if(jumpingLogic.conditions)
@@ -9,11 +10,14 @@ export function getNextFieldByJumpingLogic (jumpingLogic) {
             blockId: jumpingLogic[0]?.id
         }
     }
+    else{
+
+    }
     return nextField;
 }
 
+
 export function getNextFieldByReferTo (referTo){
-    console.log("ReferTo",referTo);
     const nextField = {
         group: referTo?.group_no,
         blockId: referTo?.id
@@ -21,17 +25,10 @@ export function getNextFieldByReferTo (referTo){
     return nextField;
 }
 
-export function getNextFieldByOptions (options,form){
-    const formValues = form.getFieldsValue();
-    console.log('formValues',formValues);
-    const keys = Object.keys(formValues);
-    const latestKey = keys[keys.length - 1];
-    const latestValue = formValues[latestKey];
-    console.log("latestvalue",latestValue)
+export function getNextFieldByOptions (options,value){
     let next = {}
     options.forEach(option => {
-        console.log("option",option)
-        if(option.value === latestValue){
+        if(option.value === value){
             console.log("yes")
             next = {
                 group: option?.referTo?.group_no,

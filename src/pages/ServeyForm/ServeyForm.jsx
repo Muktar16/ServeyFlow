@@ -3,16 +3,18 @@ import { useContext } from "react";
 import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
 import FormItemsGenerator from "../../components/FormItemsGenerator/FormItemsGenerator";
 import { data } from "../../Data/data";
-import { getNextFieldByJumpingLogic, getNextFieldByOptions, getNextFieldByReferTo } from "../../utils/NextFieldDecider";
+import { getNextFieldByJumpingLogic } from "../../utils/NextFieldDecider";
+import "./ServeyForm.css";
 
 const ServeyForm = () => {
     const [form] = Form.useForm();
     const {
         fieldList,
-        nextField,
-        decideNextBy,
+        currentGroupType,
         currentField,
-        setFieldList
+        setFieldList,
+        isSubmit,
+        nextField
       } = useContext(ServeyContext);
     
     const onFinish = (values) =>{
@@ -24,36 +26,34 @@ const ServeyForm = () => {
     }
 
     const handleNextButton = () => {
-        if(decideNextBy === 'jumping'){
-            const {jumping_logic} = data.find((group)=> group.group === currentField.group);
+        form.validateFields().then(()=>{
+            if(currentGroupType === 'numbervalidation' || currentGroupType === "non-referring"){
+            const {jumping_logic} = data.find((group)=> group?.group === currentField?.group);
             const next = getNextFieldByJumpingLogic(jumping_logic);
-            setFieldList((prev)=>[...prev,next]);
-        }
-        else{
-            const {blocks} = data.find((group)=> group.group === currentField.group);
-            const {options,referTo} = blocks.find((field)=> field.id === currentField.blockId);
-            if(referTo){
-                const next = getNextFieldByReferTo(referTo);
-                setFieldList((prev)=>[...prev,next]);
+            setFieldList((prev) => [...prev,next]);
             }
-            else{
-                const next = getNextFieldByOptions(options,form);
-                console.log("Next",next)
-                setFieldList((prev)=>[...prev,next]);
-                
+            else if(!fieldList.some((item) => JSON.stringify(item) === JSON.stringify(nextField))){
+                setFieldList((prev)=>[...prev,nextField]);
             }
-        }
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 
+
     return(<>
-        <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form className="serveyForm" form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
             {fieldList.map((field,index) => (
                 <FormItemsGenerator key={index} currentField={field}/>
             )   
             )}
-            <Form.Item>
-                <Button onClick={handleNextButton}>Next</Button>
-            </Form.Item>
+            {isSubmit ? (
+                <Button type="primary" htmlType="submit">Submit</Button>
+            ):(
+                <Form.Item>
+                    <Button onClick={handleNextButton}>Next</Button>
+                </Form.Item>
+            )}
         </Form>
     </>);
 };

@@ -3,6 +3,7 @@ import {  Form, Input } from "antd";
 function OTP({item}) {
   return (
     <Form.Item
+    className="custom-form-item"
     name={item.question?.alias}
     label={item.question?.slug}
     rules={[

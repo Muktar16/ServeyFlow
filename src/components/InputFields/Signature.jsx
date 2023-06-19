@@ -1,9 +1,9 @@
 import {  Form, Input } from "antd";
 
 const Signature = ({item}) => {
-  // console.log("Signature", item);
   return (
     <Form.Item
+    className="custom-form-item"
     name={item.question?.alias}
     label={item.question?.slug}
     rules={[

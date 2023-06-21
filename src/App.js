@@ -1,5 +1,5 @@
-import { ServeyContextProvider } from "./contexts/ServeyContext/ServeyContext"
 import Homepage from "./pages/Homepage/Homepage"
+import { ServeyContextProvider } from "./utils/contexts/ServeyContext/ServeyContext"
 
 function App() {
   return (

@@ -8,7 +8,8 @@ import OTP from "../InputFields/OTP";
 import MultipleChoice from "../InputFields/MultipleChoice";
 import CheckBox from "../InputFields/CheckBox";
 import { useContext, useEffect } from "react";
-import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
+import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
+import PhoneInput from "../InputFields/PhoneInput";
 
 const CreateFormItem = ({ fieldInfo }) => {
   const { currentGroupType, setNextField } = useContext(ServeyContext);
@@ -21,19 +22,17 @@ const CreateFormItem = ({ fieldInfo }) => {
       };
       setNextField(next);
     }
+    // eslint-disable-next-line
   }, [currentGroupType]);
 
   return (
     <>
       <Form.Item className="custom-form-item">
-        {fieldInfo.type === "textInput" ? (
-          <TextInput item={fieldInfo} />
-        ) : fieldInfo.type === "date" ? (
-          <DateInput item={fieldInfo} />
-        ) : fieldInfo.type === "contactNo" ||
-          fieldInfo.type === "numberInput" ? (
-          <NumberInput item={fieldInfo} />
-        ) : fieldInfo.type === "dropdown" ? (
+        {fieldInfo.type === "contactNo" ? (<PhoneInput item={fieldInfo}/>) :
+        fieldInfo.type === "numberInput" ? (<NumberInput item={fieldInfo}/>) :
+        fieldInfo.type === "textInput" ? (<TextInput item={fieldInfo} />) : 
+        fieldInfo.type === "date" ? (<DateInput item={fieldInfo} />) :  
+        fieldInfo.type === "dropdown" ? (
           <DropDown item={fieldInfo} />
         ) : fieldInfo.type === "terms" ? (
           <Signature item={fieldInfo} />

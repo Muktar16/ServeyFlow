@@ -1,11 +1,11 @@
 
-.serveyForm{
+.servey-form{
     margin-top: 20px;
     width: 100%;
     max-width: 500px;
 } 
 
-.serveyForm .custom-form-item {
+.servey-form .custom-form-item {
     background-color: #eeeded;
     border: 1px solid #e4dede;
     border-radius: 10px;
@@ -14,12 +14,12 @@
     height: 115px;
 }
 
-.serveyForm .custom-form-item label {
+.servey-form .custom-form-item label {
     margin-bottom: 5px;
     margin-top: 2px;
 }
   
-.serveyForm .custom-form-item .custom-form-input {
+.servey-form .custom-form-item .custom-form-input {
     border: none;
     border-radius: 5px;
     margin: 5px;
@@ -27,6 +27,6 @@
     width: 98%;
 } 
 
-.serveyForm .ant-select-selector {
+.servey-form .ant-select-selector {
     height: 40px !important;
 }

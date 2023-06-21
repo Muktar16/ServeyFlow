@@ -2,6 +2,7 @@ import React from "react";
 import {  Form, Input } from "antd";
 
 const TextInput = ({ item }) => {
+
   return (
     <Form.Item
       className="custom-form-input"

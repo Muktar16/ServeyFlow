@@ -1,18 +1,20 @@
 import { useContext, useEffect } from "react";
 import { data } from "../../Data/data";
 import CreateFormItem from "../CreateFormItem/CreateFormItem";
-import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
+import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
 
 const FormItemsGenerator = ({ currentField }) => {
-  const currentGroup = data.find(
-    (group) => group?.group === currentField?.group
-  );
-  const { setCurrentField, setCurrentGroupType, currentGroupType } =
-    useContext(ServeyContext);
+  
+  const { 
+    setCurrentField, 
+    setCurrentGroupType 
+  } =  useContext(ServeyContext);
+  const currentGroup = data.find( (group) => group?.group === currentField?.group);
 
   useEffect(() => {
     setCurrentField(currentField);
     setCurrentGroupType(currentGroup?.type);
+    // eslint-disable-next-line
   }, []);
 
   if (

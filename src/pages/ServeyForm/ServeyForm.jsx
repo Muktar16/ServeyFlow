@@ -1,15 +1,14 @@
 import { Button, Form, message } from "antd";
-import { useContext, useEffect, useState } from "react";
-import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
+import { useContext, useEffect } from "react";
 import FormItemsGenerator from "../../components/FormItemsGenerator/FormItemsGenerator";
 import { data } from "../../Data/data";
 import { getNextFieldByJumpingLogic } from "../../utils/NextFieldDecider";
 import "./ServeyForm.css";
+import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
 
 const ServeyForm = () => {
 
     const [form] = Form.useForm();
-  
     const {
         fieldList,
         currentGroupType,
@@ -21,51 +20,48 @@ const ServeyForm = () => {
         setScroll,
         scroll
     } = useContext(ServeyContext);
-    
-    const onFinish = (values) =>{
-        console.log("Submitted values" ,values);
-    }
-
 
     useEffect(() => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
-            behavior: 'smooth' // Optionally, you can use 'auto' or 'instant' for the scrolling behavior
+            behavior: 'smooth'
         });
     }, [scroll]);
-      
+    
+    const onFinish = (values) =>{
+        console.log("Submitted values" ,values);
+    }  
 
     const onFinishFailed = () => {
         message.error("Check if all fields are filled properly");
     }
 
     const handleNextButton = () => {
-        setScroll(!scroll);
-        // form.validateFields().then(()=>{
+        setScroll(!scroll); //scroll to next button
+        form.validateFields().then(()=>{
             if(currentGroupType === 'numbervalidation' || currentGroupType === "non-referring"){
             const {jumping_logic} = data.find((group)=> group?.group === currentField?.group);
             const next = getNextFieldByJumpingLogic(jumping_logic,form.getFieldsValue());
-            if(next.blockId === "submit"){
-                setIsSubmit(true);
-            }
-            else{
-                setIsSubmit(false);
-                setFieldList((prev) => [...prev,next]);
-            }
-            
+                if(next.blockId === "submit"){
+                    setIsSubmit(true);
+                }
+                else{
+                    setIsSubmit(false);
+                    setFieldList((prev) => [...prev,next]);
+                }
             }
             else if(!fieldList.some((item) => JSON.stringify(item) === JSON.stringify(nextField))){
                 setFieldList((prev)=>[...prev,nextField]);
             }
-        // }).catch((err)=>{
-        //     console.log(err);
-        // })
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 
     return(<>
         <Form
             onFinishFailed={onFinishFailed}
-            className="serveyForm"
+            className="servey-form"
             scrollToFirstError
             autoComplete="on"
             initialValues={{ remember: true }}
@@ -78,7 +74,9 @@ const ServeyForm = () => {
             )   
             )}
             {isSubmit ? (
-                <Button type="primary" htmlType="submit">Submit</Button>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">Submit</Button>
+                </Form.Item>
             ):(
                 <Form.Item>
                     <Button onClick={handleNextButton}>Next</Button>

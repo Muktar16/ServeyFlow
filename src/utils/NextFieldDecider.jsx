@@ -1,4 +1,4 @@
-import { createConditionFromFormValuesByIds } from "./DataFormattingServices";
+import { data } from "../Data/data";
 
 
 export function getNextFieldByJumpingLogic (jumpingLogic, formValues) {
@@ -20,9 +20,12 @@ export function getNextFieldByJumpingLogic (jumpingLogic, formValues) {
                 id: condition.id,
                 answer: formValues[alias],
             });
+            return null;
         })
-        for(const jubmping of jumpingLogic){
-            if(jumping.conditions === createdConditions)
+        for(const jumping of jumpingLogic){
+            if(jumping.conditions === createdConditions){
+
+            }
         }
     }
     return nextField;

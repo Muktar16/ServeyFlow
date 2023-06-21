@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { data } from '../../Data/data';
+import { data } from "../../../Data/data";
 
 const ServeyContext = createContext();
 
@@ -11,6 +11,7 @@ export const ServeyContextProvider = ({ children }) => {
   const [currentField,setCurrentField] = useState();
   const [isSubmit,setIsSubmit] = useState(false);
   const [scroll,setScroll] = useState(false);
+
   
   useEffect(()=>{
     const current = {
@@ -22,7 +23,7 @@ export const ServeyContextProvider = ({ children }) => {
     setCurrentGroupType(data[0].type);
   },[])
 
-  console.log("data",data)
+  //console.log("data",data)
 
   return (
     <ServeyContext.Provider

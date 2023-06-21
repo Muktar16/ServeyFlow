@@ -1,12 +1,11 @@
 import { Form, Radio } from "antd";
 import { useContext } from "react";
-import ServeyContext from "../../contexts/ServeyContext/ServeyContext";
 import { getNextFieldByOptions } from "../../utils/NextFieldDecider";
 import { findGroupTypeByBlockId } from "../../utils/findGroupType";
+import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
 
 const MultipleChoice = ({ item }) => {
   
-
   const {setIsSubmit,setFieldList,fieldList,setScroll,scroll} = useContext(ServeyContext);
 
   //change the dependent following fields based on the value of the current field

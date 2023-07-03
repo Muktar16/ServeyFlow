@@ -3,7 +3,7 @@ import {  Form, Input } from "antd";
 function OTP({item}) {
   return (
     <Form.Item
-    className="custom-form-input"
+    className="custom-form-item"
     name={item.question?.alias}
     label={item.question?.slug}
     rules={[
@@ -13,7 +13,7 @@ function OTP({item}) {
       },
     ]}
   >
-    <Input type= "text" />
+    <Input className="custom-form-input" type= "text" />
   </Form.Item>
   )
 }

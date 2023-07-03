@@ -7,7 +7,7 @@ const DateInput = ({ item }) => {
   const { RangePicker } = DatePicker;
   return (
     <Form.Item
-      className="custom-form-input"
+      className="custom-form-item"
       name={item.name}
       label={item.label}
       rules={[
@@ -17,7 +17,7 @@ const DateInput = ({ item }) => {
         },
       ]}
     >
-      <RangePicker onChange={onChange} />
+      <RangePicker className="custom-form-input" onChange={onChange} />
     </Form.Item>
   );
 };

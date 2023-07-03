@@ -1,9 +1,9 @@
-import { Form } from "antd";
+
 import TextInput from "../InputFields/TextInput";
 import DateInput from "../InputFields/DateInput";
 import NumberInput from "../InputFields/NumberInput";
 import DropDown from "../InputFields/DropDown";
-import Signature from "../InputFields/Signature";
+import Signature from "../InputFields/Signature/Signature";
 import OTP from "../InputFields/OTP";
 import MultipleChoice from "../InputFields/MultipleChoice";
 import CheckBox from "../InputFields/CheckBox";
@@ -27,7 +27,7 @@ const CreateFormItem = ({ fieldInfo }) => {
 
   return (
     <>
-      <Form.Item className="custom-form-item">
+      <div>
         {fieldInfo.type === "contactNo" ? (<PhoneInput item={fieldInfo}/>) :
         fieldInfo.type === "numberInput" ? (<NumberInput item={fieldInfo}/>) :
         fieldInfo.type === "textInput" ? (<TextInput item={fieldInfo} />) : 
@@ -46,7 +46,7 @@ const CreateFormItem = ({ fieldInfo }) => {
         ) : (
           <>{fieldInfo.type}</>
         )}
-      </Form.Item>
+      </div>
     </>
   );
 };

@@ -13,7 +13,7 @@ const DropDown = ({ item, dropDownArray,  setReferTo }) => {
 
   return (
     <Form.Item
-      className="custom-form-input"
+      className="custom-form-item"
       name={item.name}
       label={item.label}
       rules={[
@@ -23,7 +23,7 @@ const DropDown = ({ item, dropDownArray,  setReferTo }) => {
         },
       ]}
     >
-      <Select onChange={handleChange} options={dropDownArray} />
+      <Select className="custom-form-input" onChange={handleChange} options={dropDownArray} />
     </Form.Item>
   );
 };

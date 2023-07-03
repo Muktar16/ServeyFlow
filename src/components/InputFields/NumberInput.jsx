@@ -3,7 +3,7 @@ import { Form, Input } from "antd";
 const NumberInput = ({item}) => {
   return (
     <Form.Item
-      className="custom-form-input"
+      className="custom-form-item"
       name={item.question?.alias}
       label={item.question?.slug}
       rules={[
@@ -13,7 +13,7 @@ const NumberInput = ({item}) => {
         },
       ]}
     >
-      <Input type="text" />
+      <Input type="text" className="custom-form-input"/>
     </Form.Item>
   )
 }

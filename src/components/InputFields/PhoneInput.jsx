@@ -3,7 +3,7 @@ import { Form, Input } from "antd";
 const PhoneInput = ({item}) => {
   return (
     <Form.Item
-      className="custom-form-input"
+      className="custom-form-item"
       name={item.question?.alias}
       label={item.question?.slug}
       rules={[
@@ -17,7 +17,7 @@ const PhoneInput = ({item}) => {
         },
       ]}
     >
-      <Input placeholder = "Enter contact No." addonBefore = {item.validations?.prefix} />
+      <Input className="custom-form-input" addonBefore = {item.validations?.prefix} />
     </Form.Item>
   )
 }

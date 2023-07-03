@@ -38,7 +38,7 @@ const ServeyForm = () => {
 
     const handleNextButton = () => {
         setScroll(!scroll); //scroll to next button
-        form.validateFields().then(()=>{
+        // form.validateFields().then(()=>{
             if(currentGroupType === 'numbervalidation' || currentGroupType === "non-referring"){
             const {jumping_logic} = data.find((group)=> group?.group === currentField?.group);
             const next = getNextFieldByJumpingLogic(jumping_logic,form.getFieldsValue());
@@ -53,9 +53,9 @@ const ServeyForm = () => {
             else if(!fieldList.some((item) => JSON.stringify(item) === JSON.stringify(nextField))){
                 setFieldList((prev)=>[...prev,nextField]);
             }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        // }).catch((err)=>{
+        //     console.log(err);
+        // })
     }
 
     return(<>

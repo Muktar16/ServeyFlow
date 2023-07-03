@@ -5,7 +5,7 @@ const TextInput = ({ item }) => {
 
   return (
     <Form.Item
-      className="custom-form-input"
+      className="custom-form-item"
       name={item.question?.alias}
       label={item.question?.slug}
       rules={[
@@ -15,7 +15,7 @@ const TextInput = ({ item }) => {
         },
       ]}
     >
-      <Input type="text" />
+      <Input type="text" className="custom-form-input"/>
     </Form.Item>
   );
 };

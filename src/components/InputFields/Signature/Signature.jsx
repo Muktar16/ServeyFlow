@@ -1,15 +1,23 @@
-import { Form } from "antd";
-import { useRef, useState } from "react";
+import { Button, Form } from "antd";
+import { useRef, useState, useContext } from "react";
 import SignatureCanvas from "react-signature-canvas";
+import ServeyContext from "../../../utils/contexts/ServeyContext/ServeyContext";
 
 const Signature = ({ item }) => {
 
   const [signatureUrl, setSignatureUrl] = useState("");
+  const {form} = useContext(ServeyContext);
   const signatureCanvasRef = useRef();
 
   const handleCanvasChange = () => {
     setSignatureUrl(signatureCanvasRef.current.toDataURL());
+    form.setFieldsValue({ [item.question?.alias]: signatureUrl });
     console.log(signatureUrl);
+  };
+
+  const handleClearCanvas = () => {
+    signatureCanvasRef.current.clear();
+    form.setFieldsValue({ [item.question?.alias]: '' });
   };
 
   return (
@@ -32,7 +40,7 @@ const Signature = ({ item }) => {
           ref={signatureCanvasRef}
           onEnd={handleCanvasChange}
           canvasProps={{
-            width: "70%",
+            width: "475px",
             height: 100,
             style: { 
               border: '1px solid #e4dede',
@@ -41,6 +49,7 @@ const Signature = ({ item }) => {
              },
           }}
         />
+        <Button onClick={handleClearCanvas}>Clear</Button>
       </Form.Item>
     </div>
   );

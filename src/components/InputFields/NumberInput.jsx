@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, InputNumber } from "antd";
 
 const NumberInput = ({item}) => {
   return (
@@ -9,11 +9,15 @@ const NumberInput = ({item}) => {
       rules={[
         {
           required: item.required,
-          message: `Please input your ${item.label}`,
+          message: `Please input your ${item.question?.slug}`,
         },
+        { 
+          pattern: item.validations?.regex, 
+          message: `Please enter a valid ${item.question?.slug}` 
+      },
       ]}
     >
-      <Input type="text" className="custom-form-input"/>
+      <InputNumber type="number" className="custom-form-input"/>
     </Form.Item>
   )
 }

@@ -8,7 +8,6 @@ import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
 
 const ServeyForm = () => {
 
-    const [form] = Form.useForm();
     const {
         fieldList,
         currentGroupType,
@@ -18,7 +17,8 @@ const ServeyForm = () => {
         setIsSubmit,
         nextField,
         setScroll,
-        scroll
+        scroll,
+        form
     } = useContext(ServeyContext);
 
     useEffect(() => {

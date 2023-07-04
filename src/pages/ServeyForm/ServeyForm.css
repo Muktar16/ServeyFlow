@@ -11,7 +11,7 @@
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 25px;
-    height: 120px;
+    min-height: 120px;
 }
 
 .servey-form .custom-form-item label {

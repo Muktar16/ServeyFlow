@@ -9,7 +9,8 @@ import MultipleChoice from "../InputFields/MultipleChoice";
 import CheckBox from "../InputFields/CheckBox";
 import { useContext, useEffect } from "react";
 import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
-import PhoneInput from "../InputFields/PhoneInput";
+import Camera from "../InputFields/Camera";
+import ContactNo from "../InputFields/ContactNo";
 
 const CreateFormItem = ({ fieldInfo }) => {
   const { currentGroupType, setNextField } = useContext(ServeyContext);
@@ -28,24 +29,17 @@ const CreateFormItem = ({ fieldInfo }) => {
   return (
     <>
       <div>
-        {fieldInfo.type === "contactNo" ? (<PhoneInput item={fieldInfo}/>) :
+        {fieldInfo.type === "contactNo" ? (<ContactNo item={fieldInfo}/>) :
         fieldInfo.type === "numberInput" ? (<NumberInput item={fieldInfo}/>) :
         fieldInfo.type === "textInput" ? (<TextInput item={fieldInfo} />) : 
         fieldInfo.type === "date" ? (<DateInput item={fieldInfo} />) :  
-        fieldInfo.type === "dropdown" ? (
-          <DropDown item={fieldInfo} />
-        ) : fieldInfo.type === "terms" ? (
-          <Signature item={fieldInfo} />
-        ) : fieldInfo.type === "otp" ? (
-          <OTP item={fieldInfo} />
-        ) : fieldInfo.type === "multipleChoice" ||
-          fieldInfo.type === "checklist" ? (
-          <MultipleChoice item={fieldInfo} />
-        ) : fieldInfo.type === "checkbox" ? (
-          <CheckBox item={fieldInfo} />
-        ) : (
-          <>{fieldInfo.type}</>
-        )}
+        fieldInfo.type === "camera" ? (<Camera item={fieldInfo} />) :
+        fieldInfo.type === "dropdown" ? (<DropDown item={fieldInfo} />) : 
+        fieldInfo.type === "terms" ? (<Signature item={fieldInfo} />) : 
+        fieldInfo.type === "otp" ? (<OTP item={fieldInfo} />) : 
+        fieldInfo.type === "multipleChoice" || fieldInfo.type === "checklist" ? (<MultipleChoice item={fieldInfo} />) : 
+        fieldInfo.type === "checkbox" ? (<CheckBox item={fieldInfo} />) :
+        (<>{fieldInfo.type}</>)}
       </div>
     </>
   );

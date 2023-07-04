@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { data } from "../../../Data/data";
+import { useForm } from "antd/es/form/Form";
 
 const ServeyContext = createContext();
 
@@ -11,6 +12,7 @@ export const ServeyContextProvider = ({ children }) => {
   const [currentField,setCurrentField] = useState();
   const [isSubmit,setIsSubmit] = useState(false);
   const [scroll,setScroll] = useState(false);
+  const [form] = useForm();
 
   
   useEffect(()=>{
@@ -39,7 +41,8 @@ export const ServeyContextProvider = ({ children }) => {
         isSubmit,
         setIsSubmit,
         scroll,
-        setScroll
+        setScroll,
+        form
       }}
     >
       {children}

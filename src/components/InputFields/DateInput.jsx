@@ -8,8 +8,8 @@ const DateInput = ({ item }) => {
   return (
     <Form.Item
       className="custom-form-item"
-      name={item.name}
-      label={item.label}
+      name={item.question.alias}
+      label={item.question.slug}
       rules={[
         {
           required: item.required,

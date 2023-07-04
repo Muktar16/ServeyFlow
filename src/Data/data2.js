@@ -1,4 +1,4 @@
-export const data = [
+export const data = 
 
     [
         {
@@ -364,4 +364,3 @@ export const data = [
             ]
         }
     ]
-]

@@ -1,29 +1,30 @@
 import { Form, Select } from "antd";
 import React from "react";
 
-const DropDown = ({ item, dropDownArray,  setReferTo }) => {
-  //if dropdown selected referto exist than referto else jumping logic 
-  console.log("DropDown : ", item);
-  // console.log("dropDownArray : ", dropDownArray);
+
+const DropDown = ({ item }) => {
+
   const handleChange = (value, option) => {
-    // console.log("Value : ", value);
-    // console.log("option : ", option.referTo.id || null);
-    setReferTo(option.referTo.id || null)
+   
   };
 
   return (
     <Form.Item
       className="custom-form-item"
-      name={item.name}
-      label={item.label}
+      name={item?.question?.alias}
+      label={item?.question?.slug}
       rules={[
         {
-          required: item.required,
-          message: `Please input your ${item.label}`,
+          required: item.required || item?.skip?.id === "-1",
+          message: `This field is required`,
         },
       ]}
     >
-      <Select className="custom-form-input" onChange={handleChange} options={dropDownArray} />
+      <Select className="custom-form-input" placeholder="Select" onChange={handleChange}>
+        {item.options?.map((option,index) => (<>
+          <Select.Option value={option.value} key={index}>{option.value}</Select.Option>
+        </>))}
+        </Select>
     </Form.Item>
   );
 };

@@ -39,8 +39,8 @@ const MultipleChoice = ({ item }) => {
       ]}
     >
       <Radio.Group onChange={handleOnchange}>
-        {item?.options?.map((item) => (
-          <Radio key={item.value} value={item.value}>
+        {item?.options?.map((item,index) => (
+          <Radio key={index} value={item.value}>
             {item.value}
           </Radio>
         ))}

@@ -11,6 +11,7 @@ import { useContext, useEffect } from "react";
 import ServeyContext from "../../utils/contexts/ServeyContext/ServeyContext";
 import Camera from "../InputFields/Camera";
 import ContactNo from "../InputFields/ContactNo";
+import Product from "../InputFields/Product";
 
 const CreateFormItem = ({ fieldInfo }) => {
   const { currentGroupType, setNextField } = useContext(ServeyContext);
@@ -39,6 +40,7 @@ const CreateFormItem = ({ fieldInfo }) => {
         fieldInfo.type === "otp" ? (<OTP item={fieldInfo} />) : 
         fieldInfo.type === "multipleChoice" || fieldInfo.type === "checklist" ? (<MultipleChoice item={fieldInfo} />) : 
         fieldInfo.type === "checkbox" ? (<CheckBox item={fieldInfo} />) :
+        fieldInfo.type === "product" ? (<Product item={fieldInfo} />) :
         (<>{fieldInfo.type}</>)}
       </div>
     </>

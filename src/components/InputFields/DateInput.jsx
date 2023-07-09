@@ -1,10 +1,23 @@
-import { DatePicker, Form, } from "antd";
+import { DatePicker, Form } from "antd";
+import moment from "moment";
 
 const DateInput = ({ item }) => {
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+  const validateDate = (_, date) => {
+    const minAge = moment().subtract(item?.validations?.min, "years");
+    const maxAge = moment().subtract(item?.validations?.max, "years");
+
+    console.log(minAge,maxAge);
+
+    if (date.isBefore(maxAge)) {
+      return Promise.reject(`You must be at most ${item?.validations?.max} years old.`);
+    }
+    if (date.isAfter(minAge)) {
+      return Promise.reject(`You must be at least ${item?.validations?.min} years old.`);
+    }
+
+    return Promise.resolve();
   };
-  const { RangePicker } = DatePicker;
+
   return (
     <Form.Item
       className="custom-form-item"
@@ -15,11 +28,15 @@ const DateInput = ({ item }) => {
           required: item.required,
           message: `Please input your ${item.label}`,
         },
+        {
+          validator: (item.validations.max) ? validateDate: null,
+        },
       ]}
     >
-      <RangePicker className="custom-form-input" onChange={onChange} />
+      <DatePicker className="custom-form-input" />
     </Form.Item>
   );
 };
 
 export default DateInput;
+
